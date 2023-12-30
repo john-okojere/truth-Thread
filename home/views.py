@@ -46,6 +46,7 @@ def addblog(request):
         if form.is_valid():
             f = form.save(commit=False)
             f.user = request.user
+            f.views = 0
             form.save()
             return redirect('blogs')
     else:

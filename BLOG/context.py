@@ -4,8 +4,11 @@ def context(request):
     categories = models.Category.objects.all().order_by('name')
     catList = []
     for cat in categories:
-        if cat.cat_blog.all().count() > 0:
-            catList.append(cat)
+        if len(catList) > 4:
+            if cat.cat_blog.all().count() > 0:
+                catList.append(cat)
+        else:
+                catList.append(cat)
     blog = models.Blog.objects.all().order_by('-date')[:4]
     trend = models.Blog.objects.all().order_by('-views')[:4]
     context = {
