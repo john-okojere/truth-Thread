@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block article %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'asset/css/form.css' %}">
+<article>
+    <style>
+        .content p a{
+            text-decoration: underline;
+        }
+    </style>
+    {% if user.is_authenticated and user.is_staff %}
+    <section>
+       <a href="{% url 'addBlog' %}"> Write Something ... </a>
+    </section>
+    {% endif %}
+    <style>
+        .content .rect{
+            background-position: center !important;
+            background-size: cover !important;
+        }
+    </style>
+
+    <div class="content">
+        <img src="{{blog.image.url}}" style="max-height: 400px; max-width: 100%;" alt="">
+        <br>
+        <div style="margin-top: 1rem;">
+            <div class="head">
+                <h2>{{blog.title }}</h2>
+                <small>{{blog.date | timesince}} ago</small>
+                <br>
+                <small>{{blog.views}} views </small>
+            </div>
+            <br>
+            <p>
+                {{blog.text|safe }}
+            </p>
+        </div>
+        <hr style="margin: 3rem 0;">
+        <h2>Comment ({{blog.blog_comment.all.count}})</h2>
+        <div>
+            <style>
+                #comments li{
+                    margin-bottom:1rem ;
+                }
+            </style>
+            <ul id="comments">
+                {% for element in comment %}
+                <li id="message_{{element.id}}" style="border: 1px solid rgba(128, 128, 128, 0.173);padding: 1rem;">
+                    <div style="width: 100%;" class="my-2">
+                       <div style="display: flex;gap:10px;align-items: end;">
+                        <h5>{{element.user.last_name | title}} {{element.user.first_name | title}}</h5>
+                        <small>{{element.date | timesince}}</small>
+                       </div>
+                       <hr style="margin:0.5rem 0rem;">
+                        <div class="comment_message" id="comment_message_{{element.id}}" style="">
+                            <p style="padding:1px 10px;font-size: 1.3rem;"> {{element.comment}}</p>
+                            </div>
+                        <div style="text-align: right;"></div>
+                    </div>  
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <form id="comment_form" method="POST">
+            <div style="padding:1rem 0;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            </div>
+            <div style="padding:0;">
+                <button type="submit"> Send Message</button>
+            </div>
+            <style>
+            textarea{
+                max-height: 70px;
+                max-width: 500px;
+            }</style>
+        </form>
+        <script src="{% static 'asset/js/jquery-3.5.1.min.js' %}"></script>
+        <script>
+            $('#comment_form').on("submit", function(e) {
+                e.preventDefault();
+
+                console.log($('textarea[name=comment]').val())
+                $.ajax({
+                    type:"POST",
+                    url:'{% url "addComment" blog.uid %}',
+                    data : {
+                        'comment' : $('textarea[name=comment]').val(),
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function(response){
+                        console.log(response);
+                        $('textarea[name=comment]').val(' ')
+                    },
+                  })
+            })
+            function loadcomment() {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url "getComment" blog.uid %}',
+                    success: function(response) {
+                        const element = response;
+                        const message = `
+                        <li id="message_${element.id}" style="border: 1px solid rgba(128, 128, 128, 0.173);padding: 1rem;">
+                            <div style="width: 100%;" class="my-2">
+                            <div style="display: flex;gap:10px;align-items: end;">
+                                <h5>${element.user}</h5>
+                                <small>${element.date}</small>
+                            </div>
+                            <hr style="margin:0.5rem 0rem;">
+                                <div class="comment_message" id="comment_message_${element.id}" style="">
+                                    <p style="padding:1px 10px;font-size: 1.3rem;"> ${element.comment}</p>
+                                    </div>
+                                <div style="text-align: right;"></div>
+                            </div>  
+                        </li>
+                        
+                        `
+                        if(element.id != undefined){
+                            if(document.getElementById(`message_${element.id}`) == null){
+                                $('#comments').append(message)
+                            }    
+                        }
+                        
+                    }
+                })
+            };
+        loadcomment()
+        setInterval(loadcomment, 1000);
+        </script>
+    </div>
+</article>
+{% endblock article %}
+{% block js %}
+    <script>
+        changetab(2)
+    </script>
+    {% endblock js %}

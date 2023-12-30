@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block article %}
+<article>
+    {% if user.is_authenticated and user.is_staff %}
+    <section>
+       <a href="{% url 'addBlog' %}"> Write Something ... </a>
+    </section>
+    {% endif %}
+    <style>
+        .content .rect{
+            background-position: center !important;
+            background-size: cover !important;
+            width: 100% !important;
+        }
+    </style>
+    {% block info %}{% endblock info %}
+    {% for blog in blog %}
+    <section>
+        <div class="content">
+            <div class="rect" style="background: url({{blog.image.url}});height: 150px;width:150px;"></div>
+            <div style="width: 100%;">
+                <div class="head">
+                    <h4><a href="{% url 'blogview' blog.uid %}">{{blog.title | truncatechars:50}}</a></h4>
+                    <small>{{blog.date | timesince}} ago</small>
+                </div>
+                <p>
+                    {{blog.text | truncatechars:150}}
+                </p>
+                <div style="display: flex;gap: 1rem;">
+                <p>{{blog.blog_comment.all.count}} comment </p>
+                <p>{{blog.views}} views </p>
+            </div>
+        </div>
+        </div>
+    </section>
+    {% endfor %}
+</article>
+{% endblock article %}
+{% block js %}
+    <script>
+        changetab(2)
+    </script>
+    {% endblock js %}

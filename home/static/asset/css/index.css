@@ -1,0 +1,98 @@
+.header{
+    min-height: 300px;
+    background: url(../img/7082673_23964.jpg);
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+.header h1{
+    font-size: 48px;
+    text-transform: capitalize;
+}
+.featured{
+    margin-top: 50px;
+}
+.featured article section{
+    max-width: 100%;
+}
+.featured article{
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 49% 49%;
+    gap: 2%;
+}
+.about{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+.about .rect{
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    background: url(../img/closeup-shot-open-bible-with-blurred-laptop-coffee.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.about .text{
+    max-width: 600px;
+}
+.about .text p{
+    margin-top: 10px;
+} 
+.about .text h1{
+    text-transform: uppercase;
+}
+.blog article section {
+    max-width: 370px;
+}
+.blog article{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+.categories{
+    margin: 2rem 0rem;
+}
+ .blog h1{
+    margin-bottom: 0.5rem;
+}
+.categories h1{
+    text-transform: uppercase;
+}
+.categories ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 20px;
+}
+.indexCat li{
+    background: url(../img/7082673_23964.jpg);
+    color: #fff;
+    background-position: center;
+    background-size: cover;
+    height: 100px;
+    min-width: 200px;
+}
+.categories ul li a{
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    gap: 20px;
+    height: 100%;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+}
+.blog > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

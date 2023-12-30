@@ -1,0 +1,27 @@
+{% extends "home/blog.html" %}
+{% block info %}
+<section>
+    <h2> Search: {{query | title}}</h2>
+    <p>result: {{blog.all.count}} posts, {{category.all.count}} categories</p>
+</section>
+{% if category %}
+<style>
+    .searchcat ul li a {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+        padding:0 10px;
+    }
+</style>
+<section class="searchcat">
+    <article>
+        <ul>
+            {% for cat in category %}
+                <li><a href="{% url 'viewCategory' cat.name %}"><span>{{ cat.name | title }}</span> <span>{{cat.cat_blog.all.count}}</span></a></li>
+                <hr>
+            {% endfor %}
+        </ul>
+      </article>
+</section>
+{% endif %}
+{% endblock info %}

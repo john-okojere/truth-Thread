@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block article %}
+<link rel="stylesheet" href="{% static 'asset/css/index.css' %}">
+
+<div>
+    <div class="header">
+        <div>
+            <h1>Embark on a journey of Truth:</h1>
+            <p>Unveiling the wisdom of christianity and life's purpose.</p>
+            <a href="{% url 'blogs' %}" style="color: black;" class="cta-btn">Get Started</a>
+        </div>
+    </div>
+    <div class="featured">
+        <div style="display: flex;justify-content: space-between;">
+            <h4>Recent Posts</h4>
+            <a href="{% url 'blogs' %}">View more</a>
+        </div>
+        <article>
+          {% for blog in recent_blog %}
+            <section>
+                <div class="content">
+                    <div class="rect" style="background: url({{blog.image.url}});"></div>
+                    <div>
+                        <div class="head">
+                            <h6><a href="{% url 'blogview' blog.uid %}">{{blog.title | truncatechars:40}} </a></h2>
+                            <sub>{{blog.date | timesince}} ago</sub>
+                        </div>
+                        <p>
+                            {{blog.text | truncatechars:55}}
+                        </p>
+                        <div style="display: flex;gap: 1rem;">
+                            <sub>{{blog.blog_comment.all.count}} comment </sub>
+                            <sub>{{blog.views}} views </sub>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+        </article>
+    </div>
+    <hr>
+  
+    <div class="blog">
+        <div>
+            <h4>Trending Posts</h4>
+            <a href="{% url 'blogs' %}">View more</a>
+        </div>
+        <article>
+            {% for blog in trend %}
+            <section class="content">
+                <div >
+                    <div class="rect" style="background: url({{blog.image.url}});"></div>
+                    <div>
+                        <div class="head">
+                            <h4><a href="{% url 'blogview' blog.uid %}">{{blog.title | truncatechars:30}} </a></h4>
+                            <sub>{{blog.date | timesince}} ago</sub>
+                        </div>
+                        <p>
+                            {{blog.text | truncatechars:100}}
+                        </p>
+                        <div style="display: flex;gap: 1rem;">
+                            <p>{{blog.blog_comment.all.count}} comment </p>
+                            <p>{{blog.views}} views </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+        </article>
+    </div>
+</div>
+{% endblock article %}
+{% block js %}
+    <script>
+        changetab(1)
+    </script>
+    {% endblock js %}

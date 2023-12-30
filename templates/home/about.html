@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block article %}
+<style>
+    .about{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+</style>
+<article>
+    <div class="about">
+        <div class="rect"></div>
+        
+    </div>
+    <section>
+        <div class="text">
+            <h1>About Truth Threads</h1>
+            <p>Learn about our mission, values, and commitment to providing authentic insights</p>
+            <p>Welcome to Truth threads a digital space dedicated to exploring the profound truths of Christianity and the rich tapestry of life's purpose. Founded with a passion for authentic knowledge and spiritual discovery, Truth Threads seeks to provide a sanctuary for those on a journey of faith and self-discovery.</p>
+        </div>
+    </section>
+    <section>
+        <h2>Our Mission</h2>
+        <p>At Truth Thread, we are dedicated to providing a platform where individuals can explore the depths of Christianity, discover profound insights, and engage in meaningful discussions. Our mission is to foster a community that seeks truth, embraces diversity, and shares knowledge about Christian beliefs and values.</p>
+    </section>
+
+    <section>
+        <h2>What Sets Us Apart</h2>
+        <p>Truth Thread stands out as a blog site that goes beyond surface-level discussions. We delve into the core tenets of Christianity, offering not just information but a journey of understanding and spiritual exploration. Our content is carefully curated to provide genuine insights and encourage critical thinking.</p>
+    </section>
+
+    <section>
+        <h2>Community Engagement</h2>
+        <p>We believe in the power of community. Truth Thread is not just a platform for reading; it's a space for interaction. Join our discussions, share your experiences, and connect with like-minded individuals who are also on a quest for deeper understanding and spiritual growth.</p>
+    </section>
+
+    <section>
+        <h2>Meet Our Team</h2>
+        <p>Truth Thread is driven by a team of passionate individuals who are committed to promoting knowledge, understanding, and unity within the Christian community. Our writers, editors, and moderators come from diverse backgrounds, contributing unique perspectives to enrich the content we share.</p>
+    </section>
+
+    <section>
+        <h2>Contact Us</h2>
+        <p>We welcome your feedback, questions, and suggestions. If you would like to contribute, collaborate, or simply reach out, don't hesitate to contact us. Your voice is valued, and we look forward to connecting with you on this journey of exploration and truth-seeking.</p>
+        <p>For more enquiry: <a href="https://www.layersoftruth.org">Layers of Truth</a></p>
+    </section>
+</article>
+{% endblock article %}
+{% block js %}
+    <script>
+        changetab(3)
+    </script>
+    {% endblock js %}

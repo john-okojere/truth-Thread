@@ -1,0 +1,19 @@
+{% extends "home/blog.html" %}
+{% load static %}
+{% block info %}
+<link rel="stylesheet" href="{% static 'asset/css/index.css' %}">
+<section>
+    <div class="categories" style="margin: 1rem 0rem;">
+            <h1>Categories</h1>
+        <hr>
+        <br>
+      <article>
+        <ul>
+            {% for cat in categories %}
+                <li><a href="{% url 'viewCategory' cat.name %}"><span>{{ cat.name | title }}</span> <span>{{cat.cat_blog.all.count}}</span></a></li>
+            {% endfor %}
+        </ul>
+      </article>
+    </div>
+</section>
+{% endblock info %}

@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Cantata-One|Gayathri" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7559e3d310.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'asset/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'asset/css/style.css' %}">
+</head>
+<body style="background:#80808008">
+    <header id="header">
+        <nav>
+            <div style="display: flex;gap: 10%;align-items: center;">
+            <a href="/"><img src="{% static 'asset/img/logo/logo.svg' %}" style="width:150px;" alt=""></a>
+            <div class="search">
+                <form method="get" action="{% url 'search' %}"><input type="text" name="q" placeholder="Search ..." id=""><button type="submit">Search</button></form>
+            </div>
+        </div>
+        <div class="menus">
+            <style>
+                #menusicon i{
+                    font-size: 1.3rem;
+                }
+            </style>
+                <div class="icon"><a id="menusicon"><i class="fa fa-times"></i></a></div>
+                <ul>
+                    <li id="list-1"><a href="/">Home</a></li>
+                    <li id="list-2"><a href="{% url 'blogs' %}">Blogs</a></li>
+                    <li id="list-3"><a href="{% url 'About' %}">About Us</a></li>
+                    {% if user.is_authenticated %}
+                    <li id="list-4"> Hello, {{user.username}} <a href="{% url 'profile' user.username %}"> <img style="height: 40px;" src="{{user.profilepic.image.url}}" alt=""></a></li>
+                    {% else %}
+                    <li id="list-4" class="cta-btn" style="gap: 0;"> <a href="{% url 'login' %}">Sign In</a> | <a href="{% url 'register' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header> 
+
+    <main style="margin-bottom: 2rem;">
+        <article style="width: 100%;">
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{message}}</p>
+          {% endfor %}
+        {% endif %}
+        
+        {% block article %}
+        
+        {% endblock article %}
+    </article>
+        <aside style="width: 500px;" id="stickyaside">
+            <div>
+                <h3><a href="{% url 'ListCategory' %}" style="color: #fff;">CATEGORIES</a></h3>
+                <ul>
+                    {% for cat in categories|slice:4 %}
+                        <li><a href="{% url 'viewCategory' cat.name %}"><span>{{ cat.name | title }}</span> <span>{{cat.cat_blog.all.count}}</span></a></li>                  
+                    {% endfor %}
+                    {% if user.is_authenticated and user.is_staff %}
+                    <li>
+                        <form class="side" action="{% url 'addCategory' %}" method="post" style="display: flex;border: 1px solid gray;padding-left:5px;width:100%;">
+                            {% csrf_token %}
+                            {{categoryForm.as_p}}
+                            <button type="submit" style="padding: 5px 10px;border: none;">Add</button>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <br>
+            <div>
+                <h3><a href="{% url 'blogs' %}" style="color: #fff;">trending posts</a></h3>
+                <ul>
+                    {% for blog in trend %}
+                    <li class="content" style="display: flex;gap: 10px;">
+                        <div class="rect" style="background: url({{blog.image.url}});"></div>
+                        <div>
+                            <h5><a href="{% url 'blogview' blog.uid %}">{{blog.title | truncatechars:20}}</a></h5>
+                            <p>{{blog.text | truncatechars:30}}</p>
+                            <p>{{blog.date | timesince}} ago</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Explore profound insights into Christianity, engage in meaningful discussions, and seek truth on Truth Thread - Your Source for Christian Knowledge.</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <!-- Add more links as needed -->
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>If you have any questions, suggestions, or would like to contribute, feel free to <a href="/contact/">contact us</a>.</p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2023 Truth Thread. All rights reserved. | Powered by Winepress</p>
+        </div>
+    </footer>
+    <script src="{% static 'asset/js/scripts.js' %}"></script>
+    {% block js %}
+    
+    {% endblock js %}
+ 
+</body>
+</html>

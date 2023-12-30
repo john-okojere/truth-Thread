@@ -1,0 +1,7 @@
+{% extends "home/blog.html" %}
+{% block info %}
+<section>
+    <h2>{{category.name | title}}</h2>
+    <p>result: {{category.cat_blog.all.count}} posts</p>
+</section>
+{% endblock info %}
