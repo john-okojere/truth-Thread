@@ -1,4 +1,11 @@
 {% extends "home/blog.html" %}
+{% block meta %}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search results for '{{ query }}' on Truth Thread - Your Source for Christian Knowledge.">
+    <meta name="keywords" content="{{ query }}, Christian blog, search results, spiritual exploration">
+    <title>Search Results for '{{ query }}' - Truth Thread</title>
+{% endblock meta %}
 {% block info %}
 <section>
     <h2> Search: {{query | title}}</h2>
