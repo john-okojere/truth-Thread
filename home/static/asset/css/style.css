@@ -150,7 +150,7 @@ article section .content{
 }
 aside .rect{
     height: 70px;
-    width: 100px;
+    max-width: 100px;
     background-color: gray;
 }
 .content .rect{
