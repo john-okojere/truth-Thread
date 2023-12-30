@@ -39,12 +39,14 @@
                 <small>{{blog.views}} views </small>
             </div>
             <br>
+            <h5>Categoies: {{blog.category}}</h5>
             <p>
                 {{blog.text|safe }}
             </p>
         </div>
         <hr style="margin: 3rem 0;">
         <h2>Comment ({{blog.blog_comment.all.count}})</h2>
+        <br>
         <div>
             <style>
                 #comments li{
