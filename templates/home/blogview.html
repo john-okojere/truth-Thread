@@ -71,20 +71,26 @@
                 {% endfor %}
             </ul>
         </div>
-        <form id="comment_form" method="POST">
-            <div style="padding:1rem 0;">
-            {% csrf_token %}
-            {{ form.as_p }}
-            </div>
-            <div style="padding:0;">
-                <button type="submit"> Send Message</button>
-            </div>
-            <style>
-            textarea{
-                max-height: 70px;
-                max-width: 500px;
-            }</style>
-        </form>
+        {% if user.is_authenticated %}
+            <form id="comment_form" method="POST">
+                <div style="padding:1rem 0;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                </div>
+                <div style="padding:0;">
+                    <button type="submit"> Send Message</button>
+                </div>
+                <style>
+                textarea{
+                    max-height: 70px;
+                    max-width: 500px;
+                }</style>
+            </form>
+            {% else %}
+            <section>
+                <p>Sign in to add a comment <a href="{% url 'login' %}?next={% url 'blogview' blog.uid %}">Click here</a></p>
+            </section>
+        {% endif %}
         <script src="{% static 'asset/js/jquery-3.5.1.min.js' %}"></script>
         <script>
             $('#comment_form').on("submit", function(e) {

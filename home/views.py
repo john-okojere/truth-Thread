@@ -81,7 +81,6 @@ def getComment(request, uid):
     data={'message':'empty'}
     return JsonResponse(data, safe=False, status=200)
 
-@login_required
 def blogview(request, uid):
     blog = models.Blog.objects.get(uid=uid)
     comment = models.Comment.objects.filter(blog=blog)

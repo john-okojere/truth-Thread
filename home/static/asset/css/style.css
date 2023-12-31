@@ -149,7 +149,7 @@ article section .content{
     align-items: center;
 }
 aside .rect{
-    height: 70px;
+    height: 100px;
     max-width: 100px;
     background-color: gray;
 }

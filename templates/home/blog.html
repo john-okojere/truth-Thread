@@ -7,17 +7,22 @@
     </section>
     {% endif %}
     <style>
-        .content .rect{
+        article .content .rect{
             background-position: center !important;
             background-size: cover !important;
             width: 100% !important;
+        }
+        @media screen and (min-width:1000px) {
+            article .content .rect{
+                max-width: 150px;
+            }
         }
     </style>
     {% block info %}{% endblock info %}
     {% for blog in blog %}
     <section>
         <div class="content">
-            <div class="rect" style="background: url({{blog.image.url}});height: 150px;max-width:150px;"></div>
+            <div class="rect" style="background: url({{blog.image.url}});"></div>
             <div style="width: 100%;">
                 <div class="head">
                     <h4><a href="{% url 'blogview' blog.uid %}">{{blog.title | truncatechars:50}}</a></h4>
