@@ -70,6 +70,7 @@
                     {% for cat in categories|slice:4 %}
                         <li><a href="{% url 'viewCategory' cat.name %}"><span>{{ cat.name | title }}</span> <span>{{cat.cat_blog.all.count}}</span></a></li>                  
                     {% endfor %}
+                    <li><a href="{% url 'ListCategory' %}">View More  <i class="fa fa-arrow-right"></i></a></li>
                     {% if user.is_authenticated and user.is_staff %}
                     <li>
                         <form class="side" action="{% url 'addCategory' %}" method="post" style="display: flex;border: 1px solid gray;padding-left:5px;width:100%;">
@@ -85,7 +86,7 @@
             <div>
                 <h3><a href="{% url 'blogs' %}" style="color: #fff;">trending posts</a></h3>
                 <ul>
-                    {% for blog in trend %}
+                    {% for blog in trend|slice:4  %}
                     <li class="content" style="display: flex;gap: 10px;">
                         <div class="rect" style="background: url({{blog.image.url}});"></div>
                         <div>

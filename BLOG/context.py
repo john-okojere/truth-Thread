@@ -10,7 +10,7 @@ def context(request):
         else:
                 catList.append(cat)
     blog = models.Blog.objects.all().order_by('-date')[:4]
-    trend = models.Blog.objects.all().order_by('-views')[:4]
+    trend = models.Blog.objects.all().order_by('-views')[:6]
     context = {
         'categoryForm':categoryForm,
         'categories':catList,

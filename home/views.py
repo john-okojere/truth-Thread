@@ -38,7 +38,7 @@ def viewCategory(request, name):
 def blogs(request):
     blogs = models.Blog.objects.all().order_by('-date')
     # Number of items to show per page
-    items_per_page = 3
+    items_per_page = 7
     paginator = Paginator(blogs, items_per_page)
 
     page = request.GET.get('page')

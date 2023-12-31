@@ -196,10 +196,6 @@ ul {
     padding: 0;
 }
 
-ul li {
-    margin-bottom: 8px;
-}
-
 .footer-bottom {
     text-align: center;
 }
@@ -314,4 +310,10 @@ form.side p{
     border: 1px solid #000;
     border-radius: 5px;
     margin: 0 5px;
+}
+.textwithicon{
+    padding: 0.8rem 1.5rem;
+    display: flex !important;
+    gap: 0.7rem;
+    width: fit-content;
 }

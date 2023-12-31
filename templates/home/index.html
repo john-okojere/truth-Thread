@@ -8,13 +8,13 @@
         <div>
             <h1>Embark on a journey of Truth:</h1>
             <p>Unveiling the wisdom of christianity and life's purpose.</p>
-            <a href="{% url 'blogs' %}" style="color: black;" class="cta-btn">Get Started</a>
+            <a href="{% url 'blogs' %}" style="color: black;" class="cta-btn textwithicon">Get Started  <i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
     <div class="featured">
         <div style="display: flex;justify-content: space-between;">
             <h4>Recent Posts</h4>
-            <a href="{% url 'blogs' %}">View more</a>
+            <a href="{% url 'blogs' %}" class="textwithicon">View more <i class="fa fa-arrow-right"></i></a>
         </div>
         <article>
           {% for blog in recent_blog %}
@@ -44,7 +44,7 @@
     <div class="blog">
         <div>
             <h4>Trending Posts</h4>
-            <a href="{% url 'blogs' %}">View more</a>
+            <a href="{% url 'blogs' %}" class="textwithicon">View more  <i class="fa fa-arrow-right"></i></a>
         </div>
         <article>
             {% for blog in trend %}
