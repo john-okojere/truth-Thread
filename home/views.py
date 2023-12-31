@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from django.template.defaultfilters import urlize
 from django_user_agents.utils import get_user_agent
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from . import forms, models
 
 def homepage(request):
@@ -34,7 +36,21 @@ def viewCategory(request, name):
     return render(request, 'home/category.html',{'blog':blog, 'category':category})
 
 def blogs(request):
-    blog = models.Blog.objects.all().order_by('-date')
+    blogs = models.Blog.objects.all().order_by('-date')
+    # Number of items to show per page
+    items_per_page = 3
+    paginator = Paginator(blogs, items_per_page)
+
+    page = request.GET.get('page')
+    try:
+        blog = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        blog = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page
+        blog = paginator.page(paginator.num_pages)
+
     return render(request, 'home/blog.html',{'blog':blog})
 
 @login_required
