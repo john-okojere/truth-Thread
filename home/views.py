@@ -14,7 +14,7 @@ def homepage(request):
 
 def categoriesList(request):
     categories = models.Category.objects.all().order_by('-date')
-    blogs = models.Blog.objects.all().order_by('-date')[:5]
+    blogs = models.Blog.objects.all().order_by('-date')
     # Number of items to show per page
     items_per_page = 7
     paginator = Paginator(blogs, items_per_page)
