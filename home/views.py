@@ -14,7 +14,20 @@ def homepage(request):
 
 def categoriesList(request):
     categories = models.Category.objects.all().order_by('-date')
-    blog = models.Blog.objects.all().order_by('-date')[:5]
+    blogs = models.Blog.objects.all().order_by('-date')[:5]
+    # Number of items to show per page
+    items_per_page = 7
+    paginator = Paginator(blogs, items_per_page)
+
+    page = request.GET.get('page')
+    try:
+        blog = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        blog = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page
+        blog = paginator.page(paginator.num_pages)
     return render(request, 'home/categories.html',{'blog':blog, 'categories':categories})
 
 @login_required
@@ -32,7 +45,20 @@ def addCategory(request):
 
 def viewCategory(request, name):
     category = models.Category.objects.get(name=name)
-    blog = models.Blog.objects.filter(category=category).order_by('-date')
+    blogs = models.Blog.objects.filter(category=category).order_by('-date')
+    # Number of items to show per page
+    items_per_page = 7
+    paginator = Paginator(blogs, items_per_page)
+
+    page = request.GET.get('page')
+    try:
+        blog = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        blog = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page
+        blog = paginator.page(paginator.num_pages)
     return render(request, 'home/category.html',{'blog':blog, 'category':category})
 
 def blogs(request):
@@ -121,8 +147,20 @@ def search(request):
 
     if query:
         # Perform a search across multiple models and fields
-        blog = models.Blog.objects.filter(Q(title__icontains=query) | Q(text__icontains=query) | Q(category__name__icontains=query))
+        blogs = models.Blog.objects.filter(Q(title__icontains=query) | Q(text__icontains=query) | Q(category__name__icontains=query))
         category = models.Category.objects.filter(name__icontains=query)
+        # Number of items to show per page
+        items_per_page = 7
+        paginator = Paginator(blogs, items_per_page)
 
+        page = request.GET.get('page')
+        try:
+            blog = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page
+            blog = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page
+            blog = paginator.page(paginator.num_pages)
     context = {'query': query, 'blog': blog, 'category':category}
     return render(request, 'home/search.html', context)
